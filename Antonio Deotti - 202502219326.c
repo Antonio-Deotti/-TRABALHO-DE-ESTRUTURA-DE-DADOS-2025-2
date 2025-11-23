@@ -13,7 +13,9 @@ typedef struct {
 
 }Componentes;
 
+//funcao para adicionar itens ao inventario
 void adicionarComponente(Componentes mochila[], int *quantidade){
+    //verificando se a mochila está vazial
     if(*quantidade >= MAX){
         printf("\n\nMochila cheia! Descarte algo\n\n");
         return;
@@ -21,7 +23,7 @@ void adicionarComponente(Componentes mochila[], int *quantidade){
 
     Componentes novo;
 
-    getchar();
+    getchar();//limpar o buffer, remove os \n restantes
 
     printf("\nInforme o nome do componete: ");
     fgets(novo.nome, 30, stdin);
@@ -41,6 +43,7 @@ void adicionarComponente(Componentes mochila[], int *quantidade){
 
 }
 
+//funcao para varre o struct "componentes" exibindo uma lista de componentes
 void listarComponentes(Componentes mochila[], int quantidade){
     if(quantidade == 0){
         printf("\nA mochila esta vazia!\n\n");
@@ -55,6 +58,12 @@ void listarComponentes(Componentes mochila[], int quantidade){
     printf("\n\n");
 }
 
+/*Primeiro usamos uma funcao if para identificar se a struct está vazia,
+depois solicitamos o usuario o nome do item que deseja remover, em seguido o programa
+inicia uma varredura no array comparando as strings, ao identificar duas identicas a varivael "encontrado" assume o valor
+da posicao, em seguida varremos os arrays novamente a partir de posicao "encontrado" fazendo "i" receber "i+1"
+excluindo o item desejado e empurrando os demais para frente. Por fim diminuimos em "1" o valor de "quantidade"
+o que simboliza a diminuição de itens no inventário  */
 void descartarComponente(Componentes mochila[], int *quantidade){
     if(*quantidade < 0){
         printf("\nA mochila esta vazia!\n\n");
@@ -94,6 +103,16 @@ void descartarComponente(Componentes mochila[], int *quantidade){
 
 }
 
+/*
+1. Iniciamos verificando se a mochila está vazia.
+2. Para organizar utilizamos dois "for" aninhandos comparando o valor de prioridade seguidos de um if realizando a troca se o valor de "i"
+assumir um valor diferente do inicial.
+3. Primeiro assumimos que a posicao 0 é o valor maior.
+4. Comparamos ela com os demais, se o valor da posicao "j" for maior de "prioridadeMaior", "prioridadeMaior" assume o valor de "j".
+5. Apos percorres todas posicoes do array usamos "if" para verificar se o valor inicial é igual ao valor final,
+sendo diferente o valor incial é armazenado em um slot temporario, então o valor valor maior é colocado na posicao atual e o
+valor inicial é colocado na posicao a frente da inicial e o ciclo recomeça.
+*/
 void selectionSort(Componentes mochila[], int quantidade){
     clock_t time1, time2, timeTotal;
     
@@ -127,6 +146,14 @@ void selectionSort(Componentes mochila[], int quantidade){
 
 }
 
+/*
+1. Iniciamos verificando se a mochila esta vazia
+2. Pegamos o valor de "i" e colocamos na variavel "atual".
+3. Definimos o valo de "j" como um valor antes da posição inicial de "i"
+4. Então, enquanto "j" não chegar a 0 e enquanto o "tipo" do elemento for maior alfabeticamente, o elemento move uma posicao para
+frente e "j" uma para traz
+5. Apos sair do loop, coloca o elemento na posicao correta e o ciclo recomeca.
+*/
 void insertionSort(Componentes mochila[], int quantidade){
     clock_t time1, time2, timeTotal;
     
@@ -156,7 +183,13 @@ void insertionSort(Componentes mochila[], int quantidade){
     printf("\nMochila organizada com sucesso! O tempo para organizar a mochila foi de %1d tiks.\n\n", (long)timeTotal);
 }
 
-
+/*
+1. Iniciamos definindo dois loops aninhados
+2. Onde o loop externo define a quantidade de passadas jogando o valor maior para o final
+3. O loop iterno compara os valores, o "- 1" reduz a area analizada pois os maiores já estão no final
+4. O "if" compara os valores alfabeticamente, se o atual for maior que o sucessor, ele troca os dois de lugar 
+usando um slot temporario.
+*/
 void bubbleSort(Componentes mochila[], int quantidade){
     clock_t time1, time2, timeTotal;
     
